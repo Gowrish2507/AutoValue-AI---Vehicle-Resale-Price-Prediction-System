@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoValue AI - AI-Powered Vehicle Resale Price Prediction & GenAI Assistant</title>
+  <meta name="description" content="AutoValue AI: Machine Learning and Generative AI vehicle resale price prediction engine using historical market trends and specifications.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="brand-logo" id="logoLink">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+            <circle cx="7" cy="17" r="2"/>
+            <circle cx="17" cy="17" r="2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            AutoValue AI
+            <span class="badge">GenAI V2.4</span>
+          </div>
+          <div class="brand-sub">Resale Price Prediction System</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#predict" class="nav-link active" data-nav="predictPane">Predict Price</a></li>
+          <li><a href="#assistant" class="nav-link" data-nav="assistantPane">AI Assistant</a></li>
+          <li><a href="#report" class="nav-link" data-nav="reportPane">Valuation Report</a></li>
+          <li><a href="#market" class="nav-link" data-nav="marketPane">Market Trends</a></li>
+          <li><a href="#itinerary" class="nav-link" data-nav="itineraryPane">Itinerary</a></li>
+          <li><a href="#benchmarks" class="nav-link nav-cta" data-nav="benchmarksPane">Model Insights</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Title Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <span class="dot"></span>
+        <span>Gradient Boosting Regressor &bull; 94.8% R² Accuracy</span>
+      </div>
+      <h1 class="hero-title">
+        Get Your Vehicle's Resale Price <span class="gradient-text">Instantly</span>
+      </h1>
+      <p class="hero-desc">
+        AI-powered predictions based on vehicle specifications, engineered depreciation curves, and live regional market trends.
+      </p>
+
+      <!-- Sub-Nav Tab Controls -->
+      <div class="view-tabs" role="tablist">
+        <button class="view-tab-btn active" data-target="predictPane" id="tabPredict">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Price Predictor
+        </button>
+        <button class="view-tab-btn" data-target="assistantPane" id="tabAssistant">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Conversational AI
+        </button>
+        <button class="view-tab-btn" data-target="reportPane" id="tabReport">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Valuation Report
+        </button>
+        <button class="view-tab-btn" data-target="marketPane" id="tabMarket">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          Market Trends
+        </button>
+        <button class="view-tab-btn" data-target="itineraryPane" id="tabItinerary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Valuation Itinerary
+        </button>
+        <button class="view-tab-btn" data-target="benchmarksPane" id="tabBenchmarks">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Model Insights
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Views Container -->
+  <main class="container">
+
+    <!-- VIEW 1: CORE PRICE PREDICTOR (Matches Page 4 of Doc 1) -->
+    <div class="tab-pane active" id="predictPane">
+      <div class="predictor-grid">
+        <!-- Input Form Card -->
+        <div class="glass-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">Vehicle Specifications</h3>
+                <p class="card-subtitle">Engineered features analyzed by Gradient Boosting</p>
+              </div>
+            </div>
+          </div>
+
+          <form id="vehicleForm" onsubmit="event.preventDefault();">
+            <div class="form-grid">
+              <!-- Brand -->
+              <div class="form-group">
+                <label class="form-label" for="brandSelect">Brand</label>
+                <select id="brandSelect" class="form-select">
+                  <option value="honda" selected>Honda</option>
+                  <option value="toyota">Toyota</option>
+                  <option value="maruti">Maruti Suzuki</option>
+                  <option value="hyundai">Hyundai</option>
+                  <option value="mahindra">Mahindra</option>
+                  <option value="tata">Tata</option>
+                  <option value="kia">Kia</option>
+                  <option value="volkswagen">Volkswagen</option>
+                  <option value="skoda">Skoda</option>
+                </select>
+              </div>
+
+              <!-- Model -->
+              <div class="form-group">
+                <label class="form-label" for="modelSelect">Model</label>
+                <select id="modelSelect" class="form-select">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+
+              <!-- Manufacturing Year -->
+              <div class="form-group">
+                <label class="form-label" for="yearInput">Manufacturing Year</label>
+                <input type="number" id="yearInput" class="form-input" value="2020" min="2012" max="2024">
+              </div>
+
+              <!-- Fuel Type -->
+              <div class="form-group">
+                <label class="form-label" for="fuelSelect">Fuel Type</label>
+                <select id="fuelSelect" class="form-select">
+                  <option value="Petrol" selected>Petrol</option>
+                  <option value="Diesel">Diesel</option>
+                  <option value="CNG">CNG</option>
+                  <option value="Electric">Electric</option>
+                </select>
+              </div>
+
+              <!-- Transmission -->
+              <div class="form-group">
+                <label class="form-label" for="transSelect">Transmission</label>
+                <select id="transSelect" class="form-select">
+                  <option value="Automatic" selected>Automatic</option>
+                  <option value="Manual">Manual</option>
+                </select>
+              </div>
+
+              <!-- Mileage (km) -->
+              <div class="form-group">
+                <label class="form-label" for="mileageInput">Mileage (km)</label>
+                <input type="number" id="mileageInput" class="form-input" value="25000" step="1000" min="0">
+              </div>
+
+              <!-- Owner Count -->
+              <div class="form-group">
+                <label class="form-label" for="ownerSelect">Owner Count</label>
+                <select id="ownerSelect" class="form-select">
+                  <option value="1" selected>1 (First Owner)</option>
+                  <option value="2">2 (Second Owner)</option>
+                  <option value="3">3 (Third Owner)</option>
+                  <option value="4">4+ Owners</option>
+                </select>
+              </div>
+
+              <!-- Engine Capacity (cc) -->
+              <div class="form-group">
+                <label class="form-label" for="engineInput">Engine Capacity (cc)</label>
+                <input type="number" id="engineInput" class="form-input" value="1497" step="50" min="600" max="5000">
+              </div>
+
+              <!-- Registration State -->
+              <div class="form-group">
+                <label class="form-label" for="stateSelect">Registration State</label>
+                <select id="stateSelect" class="form-select">
+                  <option value="Tamil Nadu" selected>Tamil Nadu</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Delhi">Delhi NCR</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Telangana">Telangana</option>
+                </select>
+              </div>
+
+              <!-- Market Trend Index -->
+              <div class="form-group">
+                <label class="form-label" for="marketTrendInput">
+                  Market Trend Index
+                  <span class="tooltip-icon" title="Normalized factor (0.8 - 1.25) representing price momentum in pre-owned markets.">&#9432;</span>
+                </label>
+                <input type="number" id="marketTrendInput" class="form-input" value="1.08" step="0.01" min="0.80" max="1.30">
+              </div>
+
+              <!-- Seating Capacity -->
+              <div class="form-group full-width">
+                <label class="form-label" for="seatsSelect">Seating Capacity</label>
+                <select id="seatsSelect" class="form-select">
+                  <option value="5" selected>5 Seater</option>
+                  <option value="4">4 Seater</option>
+                  <option value="7">7 Seater</option>
+                  <option value="8">8 Seater</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="predictBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                Predict Resale Price
+              </button>
+              <button type="button" class="btn-secondary" id="surpriseBtn">
+                🎲 Surprise Me
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Prediction Result Card (Page 4 Display) -->
+        <div class="glass-card result-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">Estimated Resale Price</h3>
+                <p class="card-subtitle">Based on Gradient Boosting Regressor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="price-spotlight">
+            <div class="price-label">Predicted Resale Price</div>
+            <div class="price-number" id="priceDisplay">₹ 8,72,400</div>
+            <div class="confidence-box">
+              <span>Confidence Range:</span>
+              <span class="confidence-range-val" id="confidenceRangeDisplay">₹ 8,40,000 - ₹ 9,05,000</span>
+            </div>
+          </div>
+
+          <div class="factors-container">
+            <div class="factors-title">
+              <span>Top Factors Influencing Price</span>
+              <span class="badge">Model Feature Importance</span>
+            </div>
+            <div id="factorBarsContainer">
+              <!-- Dynamically populated factor bars with animation -->
+            </div>
+          </div>
+
+          <div class="disclaimer-text">
+            &#9432; Disclaimer: Predictions are AI-generated estimates. Actual prices may vary based on vehicle condition and market changes.
+          </div>
+        </div>
+      </div>
+
+      <!-- Generative AI Feature 2: Natural Language Price Explanation -->
+      <div class="glass-card explanation-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: rgba(99, 102, 241, 0.15); color: #818cf8; border-color: rgba(99, 102, 241, 0.3);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div>
+              <h3 class="card-title">AI Price Explanation Generator</h3>
+              <p class="card-subtitle">Natural language synthesis translating mathematical feature-importance to human insights</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explanation-narrative" id="explanationNarrativeText">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="explanation-factors-grid">
+          <div class="factor-metric-card">
+            <div class="metric-card-title">Depreciation Impact</div>
+            <div class="metric-card-val" id="factorDepVal" style="color: #f87171;">-35%</div>
+            <div class="metric-card-desc">Loss in asset value due to manufacturing vintage</div>
+          </div>
+          <div class="factor-metric-card">
+            <div class="metric-card-title">Mileage Wear Factor</div>
+            <div class="metric-card-val" id="factorMileageVal" style="color: #60a5fa;">25,000 km</div>
+            <div class="metric-card-desc">Below median odometer reading provides premium</div>
+          </div>
+          <div class="factor-metric-card">
+            <div class="metric-card-title">Market Demand Factor</div>
+            <div class="metric-card-val" id="factorTrendVal" style="color: #34d399;">1.08x</div>
+            <div class="metric-card-desc">Positive regional resale momentum for this model</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: CONVERSATIONAL AI VALUATION ASSISTANT (AL-1 Feature 1) -->
+    <div class="tab-pane" id="assistantPane">
+      <div class="section-intro-center">
+        <h2>AI Valuation Assistant</h2>
+        <p>Instead of manually entering fields, converse naturally. The assistant extracts make, model, year, fuel type, transmission, and mileage to calculate instant valuations.</p>
+      </div>
+
+      <div class="assistant-layout">
+        <!-- Chat Area -->
+        <div class="glass-card chat-container">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">NLP Valuation Chat</h3>
+                <p class="card-subtitle">Zero-form natural language query processing</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-bubble assistant">
+              <div class="bubble-sender">AutoValue AI Assistant</div>
+              Hello! I am your conversational vehicle valuation assistant. You can ask me in plain English, for example:
+              <br><br>
+              <em>"What's my 2019 Honda City petrol automatic with 25,000 km worth?"</em> or 
+              <em>"Value my 2018 Toyota Innova Crysta diesel manual 55,000 km."</em>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="e.g. What's my 2019 Honda City petrol automatic with 25,000 km worth?">
+            <button type="button" id="sendChatBtn" class="btn-primary" style="flex: 0; padding: 12px 20px;">
+              Send
+            </button>
+          </div>
+
+          <div class="quick-prompts-row">
+            <button class="quick-prompt-btn" data-prompt="What's my 2019 Honda City petrol automatic with 25,000 km worth?">
+              💬 2019 Honda City Petrol AT (25k km)
+            </button>
+            <button class="quick-prompt-btn" data-prompt="Estimate resale for 2018 Toyota Innova Crysta diesel manual 55,000 km">
+              💬 2018 Innova Crysta Diesel MT (55k km)
+            </button>
+            <button class="quick-prompt-btn" data-prompt="How much is a 2021 Maruti Suzuki Swift petrol manual with 19,000 km?">
+              💬 2021 Maruti Swift MT (19k km)
+            </button>
+          </div>
+        </div>
+
+        <!-- NLP Extraction Details & Sync -->
+        <div class="glass-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4; border-color: rgba(6, 182, 212, 0.3);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">Entity Extraction Pipeline</h3>
+                <p class="card-subtitle">Attributes parsed from natural language query</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="extraction-panel">
+            <div class="extracted-item">
+              <span class="extracted-key">Recognized Brand</span>
+              <span class="extracted-val" id="extBrand">Honda</span>
+            </div>
+            <div class="extracted-item">
+              <span class="extracted-key">Recognized Model</span>
+              <span class="extracted-val" id="extModel">City V CVT</span>
+            </div>
+            <div class="extracted-item">
+              <span class="extracted-key">Manufacturing Year</span>
+              <span class="extracted-val" id="extYear">2020</span>
+            </div>
+            <div class="extracted-item">
+              <span class="extracted-key">Fuel Specification</span>
+              <span class="extracted-val" id="extFuel">Petrol</span>
+            </div>
+            <div class="extracted-item">
+              <span class="extracted-key">Transmission Type</span>
+              <span class="extracted-val" id="extTrans">Automatic</span>
+            </div>
+            <div class="extracted-item">
+              <span class="extracted-key">Reported Mileage</span>
+              <span class="extracted-val" id="extMileage">25,000 km</span>
+            </div>
+            <div class="extracted-item">
+              <span class="extracted-key">Engine Displacement</span>
+              <span class="extracted-val" id="extEngine">1497 cc</span>
+            </div>
+
+            <button type="button" class="btn-primary" id="applyExtractedBtn" style="margin-top: 14px;">
+              Apply to Resale Predictor &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: VALUATION REPORT SUMMARY & FEEDBACK (AL-1 Feature 3, Page 6) -->
+    <div class="tab-pane" id="reportPane">
+      <div class="section-intro-center">
+        <h2>Executive Valuation Summary</h2>
+        <p>Comprehensive appraisal statement outlining predicted resale, confidence bracket, and estimated net payouts.</p>
+      </div>
+
+      <div class="report-grid">
+        <!-- Certificate Card -->
+        <div class="glass-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">Valuation Certificate</h3>
+                <p class="card-subtitle" id="reportIntroText">AutoValue AI comprehensive appraisal summary</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="report-summary-box">
+            <div class="summary-row">
+              <span class="summary-label">Algorithm Match Score</span>
+              <span class="summary-value" id="repMatchScore" style="color: #60a5fa;">61% Match</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Predicted Resale Price</span>
+              <span class="summary-value highlight" id="repPredictedPrice">₹ 8,72,400</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Recommended Confidence Range</span>
+              <span class="summary-value" id="repConfidenceRange">₹ 8,40,000 - ₹ 9,05,000</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Estimated Platform / Inspection Fee</span>
+              <span class="summary-value" id="repPlatformFee" style="color: #f87171;">₹ 23,752</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Estimated Net Proceeds to Seller</span>
+              <span class="summary-value highlight" id="repNetReceived" style="color: #34d399;">₹ 8,48,648</span>
+            </div>
+          </div>
+
+          <div class="explanation-narrative" id="reportClosingText" style="margin-top: 14px; font-size: 0.88rem;">
+            Recommendation: This vehicle represents an attractive proposition in the pre-owned segment. Listing within the confidence bracket is projected to secure an offer within 14 days.
+          </div>
+        </div>
+
+        <!-- Rating & User Feedback (from Page 6) -->
+        <div class="glass-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">Rate This Prediction</h3>
+                <p class="card-subtitle">Your feedback helps AutoValue AI learn what you like for next time</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rating-card">
+            <p style="font-size: 0.9rem; color: #cbd5e1;">How accurate was this valuation relative to your market expectation?</p>
+            <div class="stars-row" id="starsRow">
+              <button class="star-btn active" data-rate="1">&#9733;</button>
+              <button class="star-btn active" data-rate="2">&#9733;</button>
+              <button class="star-btn active" data-rate="3">&#9733;</button>
+              <button class="star-btn active" data-rate="4">&#9733;</button>
+              <button class="star-btn active" data-rate="5">&#9733;</button>
+            </div>
+            <div class="rating-feedback-msg" id="ratingFeedbackMsg">
+              ★ 5-star rating recorded (Excellent accuracy)!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Badges (Matching Page 6 Footer) -->
+      <div class="trust-badges-grid">
+        <div class="trust-badge-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="trust-info">
+            <h4>AI Powered</h4>
+            <p>ML models trained on real historical sales data</p>
+          </div>
+        </div>
+        <div class="trust-badge-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="trust-info">
+            <h4>Market Aware</h4>
+            <p>Monitors recent trends &amp; quarterly demand shifts</p>
+          </div>
+        </div>
+        <div class="trust-badge-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="trust-info">
+            <h4>Accurate Predictions</h4>
+            <p>Ensemble gradient boosting with minimal variance</p>
+          </div>
+        </div>
+        <div class="trust-badge-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          </div>
+          <div class="trust-info">
+            <h4>Updated Regularly</h4>
+            <p>Retrained on continuous pre-owned listings data</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: TOP PREDICTIONS & MARKET COMPARISON (AL-1 Page 5) -->
+    <div class="tab-pane" id="marketPane">
+      <div class="section-intro-center">
+        <h2>AI Predicted Resale Prices For You</h2>
+        <p>Comparable vehicles predicted across current market transactions and feature matches.</p>
+      </div>
+
+      <div class="market-cards-grid" id="marketCardsGrid">
+        <!-- Dynamically rendered vehicle cards with match % and instant load -->
+      </div>
+    </div>
+
+    <!-- VIEW 5: 3-DAY VEHICLE VALUATION ITINERARY (AL-1 Page 8) -->
+    <div class="tab-pane" id="itineraryPane">
+      <div class="section-intro-center">
+        <h2>Your Vehicle Valuation Itinerary</h2>
+        <p>1 Vehicle(s) Generated by AutoValue AI's prediction engine across a 3-day appraisal &amp; sale lifecycle.</p>
+      </div>
+
+      <div class="itinerary-timeline">
+        <!-- Day 1 -->
+        <div class="timeline-day-card">
+          <div class="timeline-day-header">
+            <div class="day-badge">Day 1 &bull; Diagnostic &amp; Initial Estimate</div>
+            <div class="day-est-price" id="itinDay1Price">Est. Resale Price: ₹ 8,72,400</div>
+          </div>
+          <div class="timeline-slots">
+            <div class="slot-item">
+              <div class="slot-time">Morning</div>
+              <div class="slot-title">Vehicle Overview &amp; Condition Check</div>
+              <p class="slot-desc">We analyze your vehicle's details, age, mileage &amp; overall condition against database baselines.</p>
+            </div>
+            <div class="slot-item">
+              <div class="slot-time">Afternoon</div>
+              <div class="slot-title">Market Trend &amp; Demand Analysis</div>
+              <p class="slot-desc">Evaluate current market demand, price trends &amp; active similar listings across your state.</p>
+            </div>
+            <div class="slot-item">
+              <div class="slot-time">Evening</div>
+              <div class="slot-title">Price Prediction &amp; Valuation Report</div>
+              <p class="slot-desc">Our AI predicts the best resale price range for your vehicle with 94.8% R² confidence.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="timeline-day-card">
+          <div class="timeline-day-header">
+            <div class="day-badge">Day 2 &bull; Benchmark &amp; Feature Impact</div>
+            <div class="day-est-price">Est. Resale Price: ₹ 8,35,900</div>
+          </div>
+          <div class="timeline-slots">
+            <div class="slot-item">
+              <div class="slot-time">Morning</div>
+              <div class="slot-title">Competitor Comparison</div>
+              <p class="slot-desc">We compare your vehicle with similar models in the market to identify competitive advantages.</p>
+            </div>
+            <div class="slot-item">
+              <div class="slot-time">Afternoon</div>
+              <div class="slot-title">Feature Impact &amp; Price Breakdown</div>
+              <p class="slot-desc">Understand which features increase or decrease your vehicle's value (automatic transmission, low mileage).</p>
+            </div>
+            <div class="slot-item">
+              <div class="slot-time">Evening</div>
+              <div class="slot-title">Final Valuation Summary</div>
+              <p class="slot-desc">Get your final AI-powered resale price report with net proceeds calculation.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="timeline-day-card">
+          <div class="timeline-day-header">
+            <div class="day-badge">Day 3 &bull; Sale Strategy &amp; Tracking</div>
+            <div class="day-est-price">Est. Resale Price: ₹ 8,48,000</div>
+          </div>
+          <div class="timeline-slots">
+            <div class="slot-item">
+              <div class="slot-time">Morning</div>
+              <div class="slot-title">Selling Recommendation</div>
+              <p class="slot-desc">We suggest the best time, platform &amp; strategies to sell your vehicle at maximum return.</p>
+            </div>
+            <div class="slot-item">
+              <div class="slot-time">Afternoon</div>
+              <div class="slot-title">Listing Optimization Tips</div>
+              <p class="slot-desc">Get tips to create the perfect listing and attract serious buyers within the first 7 days.</p>
+            </div>
+            <div class="slot-item">
+              <div class="slot-time">Evening</div>
+              <div class="slot-title">Save &amp; Track Your Report</div>
+              <p class="slot-desc">Save your valuation report and track price changes anytime as market conditions fluctuate.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 6: MODEL BENCHMARKS & EVALUATION (SSA-1 Page 11) -->
+    <div class="tab-pane" id="benchmarksPane">
+      <div class="section-intro-center">
+        <h2>Model Performance &amp; Evaluation</h2>
+        <p>Empirical regression benchmarks comparing Linear Regression, Random Forest, and Gradient Boosting Regressor on the 496-record pre-owned vehicle dataset (80:20 Train-Test split).</p>
+      </div>
+
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-icon-badge">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </div>
+            <div>
+              <h3 class="card-title">Comparative Model Metrics (SSA-1 Results)</h3>
+              <p class="card-subtitle">Evaluated on Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and R² Score</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="benchmark-table-wrapper">
+          <table class="benchmark-table">
+            <thead>
+              <tr>
+                <th>Model Architecture</th>
+                <th>RMSE (Lower is Better)</th>
+                <th>MAE (Lower is Better)</th>
+                <th>R² Score (Higher is Better)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-winner">
+                <td>
+                  <strong>Gradient Boosting Regressor</strong>
+                  <span class="winner-tag">Selected Best Model</span>
+                </td>
+                <td class="metric-num" style="color: #34d399;">₹ 49,875.90</td>
+                <td class="metric-num" style="color: #34d399;">₹ 36,410.80</td>
+                <td class="metric-num" style="color: #34d399; font-weight: 700;">0.948</td>
+                <td><span class="tag-pill" style="color: #34d399; border-color: rgba(52, 211, 153, 0.3);">Deployed Engine</span></td>
+              </tr>
+              <tr>
+                <td><strong>Random Forest Regressor</strong> (n_estimators=300)</td>
+                <td class="metric-num">₹ 52,180.42</td>
+                <td class="metric-num">₹ 38,760.25</td>
+                <td class="metric-num">0.941</td>
+                <td><span class="tag-pill">Ensemble Baseline</span></td>
+              </tr>
+              <tr>
+                <td><strong>Linear Regression</strong> (Standardized)</td>
+                <td class="metric-num" style="color: #f87171;">₹ 98,420.15</td>
+                <td class="metric-num" style="color: #f87171;">₹ 71,205.60</td>
+                <td class="metric-num" style="color: #f87171;">0.812</td>
+                <td><span class="tag-pill">Linear Baseline</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <div class="brand-title" style="font-size: 1.15rem; margin-bottom: 4px;">
+          AutoValue AI &bull; Resale Prediction Platform
+        </div>
+        <p class="footer-copy">
+          Intelligent vehicle valuation engine powered by Machine Learning and Generative AI.
+        </p>
+      </div>
+      <div class="footer-copy" style="text-align: right;">
+        &copy; 2026 AutoValue AI. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
