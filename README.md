@@ -16,8 +16,8 @@ AutoValue AI is an AI-powered vehicle resale price prediction and appraisal plat
 ## Getting Started
 1. Clone the repository:
    ```bash
-   git clone <REPO_URL>
-   cd AutoValue-AI
+   git clone https://github.com/Gowrish2507/AutoValue-AI---Vehicle-Resale-Price-Prediction-System.git
+   cd AutoValue-AI---Vehicle-Resale-Price-Prediction-System
    ```
 2. Start the local server:
    ```bash
